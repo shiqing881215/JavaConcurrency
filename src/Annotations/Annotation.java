@@ -16,4 +16,9 @@ public interface Annotation {
 		String description();
 		String reason();
 	}
+	
+	@Documented
+	public @interface GuardeBy {
+		String lockObject();
+	}
 }
