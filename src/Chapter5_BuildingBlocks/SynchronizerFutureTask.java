@@ -8,7 +8,15 @@ import java.util.concurrent.FutureTask;
  * 
  * @author shiqing
  * 
- * FutureTask is similar as Latch.
+ * A Future represents the result of an asynchronous computation. 
+ * Methods are provided to check if the computation is complete, to wait for its completion, and to retrieve the result of the computation. 
+ * The result can only be retrieved using method get when the computation has completed, 
+ * blocking if necessary until it is ready. 
+ * Cancellation is performed by the cancel method. 
+ * Additional methods are provided to determine if the task completed normally or was cancelled. 
+ * Once a computation has completed, the computation cannot be cancelled.
+ * 
+ * FutureTask is similar as Latch. It implements Runnable. 
  * It performs as a get until all the job is done and then you get the answer.
  * 
  * Something about Callable : 
