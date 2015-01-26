@@ -14,7 +14,7 @@ import java.util.concurrent.CountDownLatch;
 public class SynchronizerLatch {
 	public long caculateExecutionTime (int threadNumber, final Runnable longTimeTask) throws InterruptedException {
 		final CountDownLatch startGate = new CountDownLatch(1);
-		final CountDownLatch endGate = new CountDownLatch(1);
+		final CountDownLatch endGate = new CountDownLatch(threadNumber);
 		
 		for (int i = 0; i < threadNumber; i++) {
 			Thread t = new Thread() {
