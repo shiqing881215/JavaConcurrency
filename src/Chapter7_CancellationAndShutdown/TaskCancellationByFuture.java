@@ -15,6 +15,7 @@ public class TaskCancellationByFuture {
 			// task will be cancelled below
 		} catch (ExecutionException e) {
 			// exception in the task; rethrow
+			// pop up the exception to the caller surface
 			throw launderThrowable(e.getCause());
 		} finally {
 			// Cancel the task in final block
