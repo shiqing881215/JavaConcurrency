@@ -13,7 +13,7 @@ import Annotations.Annotation.ThreadSafe;
  * Like the isCancelled here 
  *
  */
-public class TaskCancellation {
+public class TaskCancellationByFlag {
 	@ThreadSafe(description = "Protect by intrinsic lock")
 	public class PrimeGenerator implements Runnable {
 		@GuardeBy(lockObject = "this")
@@ -42,7 +42,7 @@ public class TaskCancellation {
 	}
 	
 	public static void main(String[] args) throws InterruptedException {
-		PrimeGenerator pg = new TaskCancellation().new PrimeGenerator();
+		PrimeGenerator pg = new TaskCancellationByFlag().new PrimeGenerator();
 		new Thread(pg).start();
 		
 		try {
