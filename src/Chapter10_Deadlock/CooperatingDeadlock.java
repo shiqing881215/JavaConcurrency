@@ -10,6 +10,8 @@ import Annotations.Annotation.GuardeBy;
  *	There is possibility that a single call with one explicitly lock can result in multiple lock
  *	requirement between cooperating objects. 
  *
+ *	This could be resolved by using "open call" which is shrinking synchronized block
+ *
  */
 public class CooperatingDeadlock {
 	class Taxi {
@@ -35,6 +37,22 @@ public class CooperatingDeadlock {
 				dispatcher.notifyAvailable(this);
 			}
 		}
+		
+		/*
+		This is the way to use shrinking synchronized block (which is called open calls) to avoid this 
+		potential deadlock 
+		 
+		public void setLocation(String newLocation) {
+			boolean isReachiedDestination = false;
+			synchronized (this) {
+				this.location = newLocation;
+				isReachiedDestination = newLocation.equals(destination);
+			}
+			if (isReachiedDestination) {
+				dispatcher.notifyAvailable(this);
+			}
+		}
+		*/
 	}
 	
 	// Represent the system, include a bunch of taxi
@@ -64,6 +82,24 @@ public class CooperatingDeadlock {
 			}
 			return image;
 		}
+		
+		/*
+		This is also the way to do open call
+		 
+		public Image getImage() {
+			Image image = new Image();
+			Set<Taxi> copy;
+			synchronized (this) {
+				copy = new HashSet<Taxi>(taxis);
+			}
+			
+			for (Taxi t : copy) {
+				// here we need the lock of t to get the location
+				image.drawTaxiOnMap(t.getLocation());
+			}
+			return image;
+		}
+		*/
 		
 		class Image {
 			public void drawTaxiOnMap(String location) {
