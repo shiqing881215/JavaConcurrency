@@ -53,6 +53,7 @@ public class ReentrantLockDemo {
 			if (System.nanoTime() > stopTime) {
 				return false;
 			}
+			// Also notice here, wait for a RANDOM time to avoid the livelock
 			TimeUnit.NANOSECONDS.sleep(fixedDelay + rnd.nextLong()%randMod);
 		}
 	}
@@ -70,7 +71,7 @@ public class ReentrantLockDemo {
 	}
 
 	// Lock stays here!!!!
-	private class Account {
+	public class Account {
 		// Explicit lock
 		Lock lock;
 		
